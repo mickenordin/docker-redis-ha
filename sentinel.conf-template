@@ -1,0 +1,14 @@
+port 26379
+daemonize no
+logfile stdout
+sentinel deny-scripts-reconfig yes
+sentinel monitor ${LEADER_NAME} ${LEADER_ADDRESS} 6379 2
+sentinel down-after-milliseconds ${LEADER_NAME} 10000
+sentinel auth-pass ${LEADER_NAME} ${LEADER_PASSWORD}
+sentinel config-epoch ${LEADER_NAME} 1
+sentinel leader-epoch ${LEADER_NAME} 1
+protected-mode yes
+requirepass "${LEADER_PASSWORD}"
+sentinel current-epoch 1
+sentinel announce-ip ${ANNOUNCE_ADDRESS}
+sentinel announce-port 26379

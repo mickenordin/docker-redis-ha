@@ -1,0 +1,32 @@
+version: '3.2'
+
+services:
+
+    redis-server:
+      build:
+        context: .
+        dockerfile: Dockerfile.server
+        args:
+          LEADER_PASSWORD: ${LEADER_PASSWORD}
+          REPLICAOF: ${REPLICAOF}
+      image: server:latest
+      ports:
+        - "6379:6379"
+      command: redis-server /usr/local/redis/redis-server.conf --loglevel verbose
+      restart: always
+
+    redis-sentinel:
+      build:
+        context: .
+        dockerfile: Dockerfile.sentinel
+        args:
+          ANNOUNCE_ADDRESS: ${ANNOUNCE_ADDRESS}
+          BIND_ADDRESS: ${BIND_ADDRESS}
+          LEADER_ADDRESS: ${LEADER_ADDRESS}
+          LEADER_NAME: ${LEADER_NAME}
+          LEADER_PASSWORD: ${LEADER_PASSWORD}
+      image: sentinel:latest
+      ports:
+        - "26379:26379"
+      command: redis-server /usr/local/redis/redis-sentinel.conf --sentinel --loglevel verbose
+      restart: always

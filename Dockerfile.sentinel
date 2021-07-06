@@ -1,0 +1,15 @@
+FROM redis:alpine
+ARG LEADER_PASSWORD
+ARG LEADER_NAME
+ARG LEADER_ADDRESS
+ARG BIND_ADDRESS
+ARG ANNOUNCE_ADDRESS
+RUN apk add gettext
+COPY ./sentinel.conf-template /
+RUN mkdir -p /usr/local/redis
+RUN chmod 777 /usr/local/redis
+RUN envsubst < /sentinel.conf-template > /usr/local/redis/redis-sentinel.conf
+RUN chmod 666 /usr/local/redis/redis-sentinel.conf
+RUN ls -l /usr/local/redis/redis-sentinel.conf
+RUN cat /usr/local/redis/redis-sentinel.conf
+EXPOSE 26379
