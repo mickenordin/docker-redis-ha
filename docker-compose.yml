@@ -21,7 +21,6 @@ services:
         dockerfile: Dockerfile.sentinel
         args:
           ANNOUNCE_ADDRESS: ${ANNOUNCE_ADDRESS}
-          BIND_ADDRESS: ${BIND_ADDRESS}
           LEADER_ADDRESS: ${LEADER_ADDRESS}
           LEADER_NAME: ${LEADER_NAME}
           LEADER_PASSWORD: ${LEADER_PASSWORD}

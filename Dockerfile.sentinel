@@ -2,7 +2,6 @@ FROM redis:alpine
 ARG LEADER_PASSWORD
 ARG LEADER_NAME
 ARG LEADER_ADDRESS
-ARG BIND_ADDRESS
 ARG ANNOUNCE_ADDRESS
 RUN apk add gettext
 COPY ./sentinel.conf-template /
